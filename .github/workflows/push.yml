@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: ./gradlew assembleDebug
+    - run: ./gradlew assembleRelease
     - uses: actions/upload-artifact@v2
       with:
         name: Openboard
