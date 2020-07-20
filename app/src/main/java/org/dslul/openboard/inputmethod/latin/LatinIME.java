@@ -1965,6 +1965,13 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         return mSettings.getCurrent().isLanguageSwitchKeyEnabled();
     }
 
+
+    public boolean shouldShowNumberRow() {
+        final boolean value = mSettings.getCurrent().isNumberRowEnabled();
+
+        return value;
+    }
+
     private void setNavigationBarVisibility(final boolean visible) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
             // For N and later, IMEs can specify Color.TRANSPARENT to make the navigation bar
