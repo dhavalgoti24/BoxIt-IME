@@ -106,7 +106,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     // This is being used only for the backward compatibility.
     private static final String PREF_SUPPRESS_LANGUAGE_SWITCH_KEY =
             "pref_suppress_language_switch_key";
-
+    private static final String PREF_SHOW_NUMBER_ROW =
+            "pref_show_number_row";
     private static final String PREF_LAST_USED_PERSONALIZATION_TOKEN =
             "pref_last_used_personalization_token";
     private static final String PREF_LAST_PERSONALIZATION_DICT_WIPED_TIME =
@@ -263,6 +264,10 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return Integer.parseInt(prefs.getString(PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY,
                 Integer.toString(res.getInteger(
                         R.integer.config_key_preview_linger_timeout))));
+    }
+	
+    public static boolean readShowsNumberRow(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, false);
     }
 
     public static String readPrefAdditionalSubtypes(final SharedPreferences prefs,

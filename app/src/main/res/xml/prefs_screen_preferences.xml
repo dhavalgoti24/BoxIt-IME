@@ -16,6 +16,12 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_screen_preferences">
+	<CheckBoxPreference
+        android:key="pref_show_number_row"
+        android:title="@string/number_row"
+        android:summary="@string/number_row_summary"
+        android:defaultValue="false"
+        android:persistent="true" />
     <CheckBoxPreference
         android:key="auto_cap"
         android:title="@string/auto_cap"
