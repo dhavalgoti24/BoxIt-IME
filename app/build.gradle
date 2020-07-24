@@ -22,7 +22,7 @@ android {
 	
 	signingConfigs {
 		release {
-			storeFile localProps.getProperty("storeFile")
+			storeFile file(localProps.getProperty("storeFile"))
 			storePassword localProps.getProperty("storePass")
 			keyAlias localProps.getProperty("keyAlias")
 			keyPassword localProps.getProperty("keyPass")
