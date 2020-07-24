@@ -33,21 +33,18 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			signingConfig signingConfigs.release
         }
 		
-		 debug {
+		debug {
 		    applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			signingConfig signingConfigs.release
         }
-		
-		buildTypes.debug.signingConfig = signingConfigs.release
-		buildTypes.release.signingConfig = signingConfigs.release
     }
 	
-
-
     aaptOptions {
         noCompress 'dict'
     }
