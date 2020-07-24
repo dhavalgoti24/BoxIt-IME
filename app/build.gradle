@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 Properties localProps = new Properties()
 File localPropsFile = project.rootProject.file('local.properties')
@@ -58,6 +58,7 @@ android {
     lintOptions {
         checkReleaseBuilds false
     }
+
 }
 
 dependencies {
