@@ -14,9 +14,9 @@ jobs:
         java-version: 11
 
     - name: set up signing configs
-      run: release/setup.sh "$KEY"
+      run: chmod +x release/setup.sh && release/setup.sh "$KEY"
       env:
-        ENCRYPT_KEY: ${{ secrets.KEY }}
+        KEY: ${{ secrets.KEY }}
 
     - uses: actions/cache@v2
       with:
@@ -31,7 +31,7 @@ jobs:
 
     - name: clean up signing configs
       if: always()
-      run: release/cleanup.sh
+      run: chmod +x release/cleanup.sh && release/cleanup.sh
 
     - uses: actions/upload-artifact@v2
       with:
