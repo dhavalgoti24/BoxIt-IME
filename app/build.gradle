@@ -2,10 +2,29 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
+File localPropsFile = project.rootProject.file('local.properties')
+
 android {
     compileSdkVersion 29
     ndkVersion "21.3.6528147"
+	
+	if (localPropsFile.exists()) {
+		Properties localProps = new Properties()
+		localProps.load(localPropsFile.newDataInputStream())
     
+		signingConfigs {
+			release {
+				storeFile file localProps.getProperty("storeFile")
+				storePassword localProps.getProperty("storePass")
+				keyAlias localProps.getProperty("keyAlias")
+				keyPassword localProps.getProperty("keyPass")
+			}
+		}
+
+		buildTypes.debug.signingConfig = signingConfigs.release
+		buildTypes.release.signingConfig = signingConfigs.release
+	}
+	
     defaultConfig {
         applicationId "org.dslul.openboard.inputmethod.latin"
         minSdkVersion 19

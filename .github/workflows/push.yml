@@ -1,25 +1,47 @@
 on: 
  push:
-   branches: [ master ]
+   branches: [ workflow ]
 name: Build
 jobs:
   setup-android:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      
     - name: set up JDK 11
       uses: actions/setup-java@v1
       with:
         java-version: 11
+
+    - name: set up signing configs
+      run: release/setup.sh "$KEY"
+      env:
+        ENCRYPT_KEY: ${{ secrets.KEY }}
+
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
     - run: ./gradlew assembleRelease
+
+    - name: clean up signing configs
+      if: always()
+      run: release/cleanup.sh
+
     - uses: actions/upload-artifact@v2
       with:
-        name: Openboard
-        path: app/build/outputs/apk/release/app-release-unsigned.apk
+        name: openboard
+        path: ./app/build/outputs/apk/release/app-release.apk
+
     - name: Telegram Notify
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Openboard Release Apk
-        document: app/build/outputs/apk/release/app-release-unsigned.apk
+        message: openboard Release Apk
+        document: ./app/build/outputs/apk/release/app-release.apk
