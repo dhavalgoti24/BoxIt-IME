@@ -18,15 +18,6 @@ jobs:
       env:
         KEY: ${{ secrets.KEY }}
 
-    - uses: actions/cache@v2
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-
     - run: ./gradlew assembleDebug
 
     - name: clean up signing configs
