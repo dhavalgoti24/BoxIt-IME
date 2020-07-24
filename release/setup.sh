@@ -14,3 +14,5 @@ if [[ -n "$KEY" ]]; then
 else
     echo "Error"
 fi
+
+mv keystore.jks app/keystore.jks
