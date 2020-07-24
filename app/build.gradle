@@ -19,14 +19,14 @@ android {
 	if (localPropsFile.exists()) {
 		Properties localProps = new Properties()
 		localProps.load(localPropsFile.newDataInputStream())
-    
-		signingConfigs {
-			release {
-				storeFile localProps.getProperty("storeFile")
-				storePassword localProps.getProperty("storePass")
-				keyAlias localProps.getProperty("keyAlias")
-				keyPassword localProps.getProperty("keyPass")
-			}
+    }
+	
+	signingConfigs {
+		release {
+			storeFile localProps.getProperty("storeFile")
+			storePassword localProps.getProperty("storePass")
+			keyAlias localProps.getProperty("keyAlias")
+			keyPassword localProps.getProperty("keyPass")
 		}
 	}
 
