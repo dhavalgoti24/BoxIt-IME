@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
+Properties localProps = new Properties()
+File localPropsFile = project.rootProject.file('local.properties')
+if (localPropsFile.exists()) {
+	localProps.load(localPropsFile.newDataInputStream())
+}
+
 android {
     compileSdkVersion 29
     ndkVersion "21.3.6528147"
@@ -13,11 +19,21 @@ android {
         versionCode 10
         versionName "1.3"
     }
+	
+	signingConfigs {
+		release {
+			storeFile file(localProps.getProperty("storeFile"))
+			storePassword localProps.getProperty("storePass")
+			keyAlias localProps.getProperty("keyAlias")
+			keyPassword localProps.getProperty("keyPass")
+		}
+	}
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			signingConfig signingConfigs.release
         }
     }
 
